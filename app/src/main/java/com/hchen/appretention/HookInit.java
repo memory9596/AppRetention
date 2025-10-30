@@ -18,7 +18,7 @@
  */
 package com.hchen.appretention;
 
-import static com.hchen.hooktool.log.XposedLog.logENoSave;
+import static com.hchen.appretention.log.AppLogger.logENoSave;
 
 import androidx.annotation.NonNull;
 

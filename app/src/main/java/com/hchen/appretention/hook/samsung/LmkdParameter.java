@@ -25,11 +25,11 @@ import static com.hchen.appretention.data.path.SystemClass.ActiveUids;
 import static com.hchen.appretention.data.path.SystemClass.ActivityManagerService;
 import static com.hchen.appretention.data.path.SystemClass.PlatformCompat;
 import static com.hchen.appretention.data.path.SystemClass.ProcessList;
+import static com.hchen.appretention.log.AppLogger.logD;
+import static com.hchen.appretention.log.AppLogger.logI;
 import static com.hchen.hooktool.core.CoreTool.callStaticMethod;
 import static com.hchen.hooktool.core.CoreTool.findClass;
 import static com.hchen.hooktool.core.CoreTool.hookMethod;
-import static com.hchen.hooktool.log.XposedLog.logD;
-import static com.hchen.hooktool.log.XposedLog.logI;
 
 import android.util.Pair;
 

@@ -73,7 +73,7 @@ android {
     android {
         applicationVariants.configureEach { variant ->
             variant.outputs.configureEach { output ->
-                outputFileName = "${apk}-v${variant.versionName}(${variant.versionCode})_${variant.buildType.name}.apk"
+                outputFileName = "${apk}_v${variant.versionName}_${variant.versionCode}_${variant.buildType.name}.apk"
             }
         }
     }
@@ -125,7 +125,7 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.9.1'
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 
-    implementation(project(':HookTool'))
-    implementation implementation(project(':app:collect'))
-    annotationProcessor annotationProcessor(project(':app:collect'))
+    implementation(project(':HookTool:tool'))
+    compileOnly(project(':app:collect'))
+    annotationProcessor(project(':app:collect'))
 }

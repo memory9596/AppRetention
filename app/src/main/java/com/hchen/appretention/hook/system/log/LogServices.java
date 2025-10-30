@@ -38,12 +38,12 @@ import android.os.Parcelable;
 import android.provider.Settings;
 
 import com.hchen.appretention.BuildConfig;
+import com.hchen.appretention.log.AppLogger;
 import com.hchen.appretention.log.SaveLog;
 import com.hchen.collect.HookEntrance;
 import com.hchen.hooktool.HCBase;
 import com.hchen.hooktool.hook.IHook;
 import com.hchen.hooktool.log.AndroidLog;
-import com.hchen.hooktool.log.XposedLog;
 import com.hchen.hooktool.utils.SystemPropTool;
 
 import java.io.BufferedReader;
@@ -93,7 +93,7 @@ public class LogServices extends HCBase {
                     } else
                         mContext.registerReceiver(new SystemBaseBroadcastReceiver(), filter);
 
-                    XposedLog.logI(TAG, "Register log services broadcast receiver!!");
+                    AppLogger.logI(TAG, "Register log services broadcast receiver!!");
                 }
             }
         );
@@ -120,7 +120,7 @@ public class LogServices extends HCBase {
                                 }
                             }
                         );
-                        XposedLog.logI(TAG, "System boot completed!!");
+                        AppLogger.logI(TAG, "System boot completed!!");
                     }
                     case SaveLog.ACTION_LOG_SERVICE_CONTENT -> {
                         SaveLog.LogContentData logContentData;
@@ -132,7 +132,7 @@ public class LogServices extends HCBase {
                                 logContentData = (rawData instanceof SaveLog.LogContentData) ? (SaveLog.LogContentData) rawData : null;
                             }
                             if (logContentData == null) {
-                                XposedLog.logW(TAG, "Broadcast receiver: log logContent data is null!");
+                                AppLogger.logW(TAG, "Broadcast receiver: log logContent data is null!");
                                 return;
                             }
                         } catch (Throwable ignore) {
@@ -151,10 +151,10 @@ public class LogServices extends HCBase {
                     }
                     case Intent.ACTION_SHUTDOWN, Intent.ACTION_REBOOT -> {
                         SaveLog.removeAllOldLogFileAndCopyLogFileToOldPathIfNeed();
-                        XposedLog.logINoSave(TAG, "System will shutdown or reboot!!!");
+                        AppLogger.logINoSave(TAG, "System will shutdown or reboot!!!");
                     }
                     default -> {
-                        XposedLog.logW(TAG, "Unknown action: " + intent.getAction());
+                        AppLogger.logW(TAG, "Unknown action: " + intent.getAction());
                     }
                 }
             }
@@ -180,12 +180,12 @@ public class LogServices extends HCBase {
                 if (!isKillEventRecording)
                     startRecord();
                 else
-                    XposedLog.logW(TAG, "Kill event log record is already started!!");
+                    AppLogger.logW(TAG, "Kill event log record is already started!!");
             } else if (!BuildConfig.DEBUG) {
                 if (isKillEventRecording && mExecutorService != null) {
                     mExecutorService.shutdownNow();
                     clear();
-                    XposedLog.logI(TAG, "Stop record kill event!!");
+                    AppLogger.logI(TAG, "Stop record kill event!!");
                 }
             }
         }
@@ -195,7 +195,7 @@ public class LogServices extends HCBase {
             mExecutorService = Executors.newSingleThreadExecutor();
             mExecutorService.submit(() -> {
                 try {
-                    XposedLog.logI(TAG, "Start record kill event!!");
+                    AppLogger.logI(TAG, "Start record kill event!!");
                     isKillEventRecording = true;
                     mLogcat = Runtime.getRuntime().exec("logcat -b events");
                     mReader = new BufferedReader(new InputStreamReader(mLogcat.getInputStream()));
@@ -208,7 +208,7 @@ public class LogServices extends HCBase {
                             SaveLog.writeFile(mKillEventRecordFile, line);
                     }
                 } catch (IOException e) {
-                    XposedLog.logE(TAG, "Start record kill event failed!", e);
+                    AppLogger.logE(TAG, "Start record kill event failed!", e);
                 } finally {
                     if (mLogcat != null) {
                         mLogcat.destroy();
@@ -219,7 +219,7 @@ public class LogServices extends HCBase {
                             mReader.close();
                             mReader = null;
                         } catch (IOException e) {
-                            XposedLog.logE(TAG, "Close reader failed!", e);
+                            AppLogger.logE(TAG, "Close reader failed!", e);
                         }
                     }
                     SaveLog.closeFile(mKillEventRecordFile);
@@ -239,11 +239,11 @@ public class LogServices extends HCBase {
                     mReader.close();
                     mReader = null;
                 } catch (IOException e) {
-                    XposedLog.logE(TAG, "Close reader failed!", e);
+                    AppLogger.logE(TAG, "Close reader failed!", e);
                 }
             }
             isKillEventRecording = false;
-            XposedLog.logI(TAG, "Clear kll log event record process!!");
+            AppLogger.logI(TAG, "Clear kll log event record process!!");
         }
     }
 
@@ -263,7 +263,7 @@ public class LogServices extends HCBase {
             ExecutorService mExecutorService = Executors.newSingleThreadExecutor();
             mExecutorService.submit(() -> {
                 try {
-                    XposedLog.logI(TAG, "Start record system prop!!");
+                    AppLogger.logI(TAG, "Start record system prop!!");
                     mPropData = Runtime.getRuntime().exec("getprop");
                     mReader = new BufferedReader(new InputStreamReader(mPropData.getInputStream()));
                     String line;
@@ -273,7 +273,7 @@ public class LogServices extends HCBase {
                         SaveLog.writeFile(mRecordFile, line);
                     }
                 } catch (IOException e) {
-                    XposedLog.logE(TAG, "Start record system prop failed!", e);
+                    AppLogger.logE(TAG, "Start record system prop failed!", e);
                 } finally {
                     if (mPropData != null) {
                         mPropData.destroy();
@@ -284,11 +284,11 @@ public class LogServices extends HCBase {
                             mReader.close();
                             mReader = null;
                         } catch (IOException e) {
-                            XposedLog.logE(TAG, "Close reader failed!", e);
+                            AppLogger.logE(TAG, "Close reader failed!", e);
                         }
                     }
                     SaveLog.closeFile(mRecordFile);
-                    XposedLog.logI(TAG, "Record system prop done, close process success!!");
+                    AppLogger.logI(TAG, "Record system prop done, close process success!!");
                 }
             });
         }

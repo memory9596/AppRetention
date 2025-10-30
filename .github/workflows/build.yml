@@ -1,0 +1,77 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+
+    steps:
+      - name: Keep scheduled workflow activity
+        uses: WaterLemons2k/scheduled-workflow-activity-action@v2
+
+      - name: Delete workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: 0
+          keep_minimum_runs: 0
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: 'recursive'
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: "21"
+          distribution: "temurin"
+
+      - name: Set up NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: "r25b"
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Get version name from build.gradle
+        id: get_version
+        run: |
+          VERSION_NAME=$(grep "versionName \"" app/build.gradle | sed 's/.*"\(.*\)".*/\1/')
+          echo "VERSION_NAME=${VERSION_NAME}" >> $GITHUB_OUTPUT
+
+      - name: Decode Keystore
+        run: echo "${{ secrets.SIGNING_KEY_STORE_BASE64 }}" | base64 --decode > app/my-release-key.keystore
+
+      - name: Create local.properties for signing
+        run: |
+          echo "keyStoreFile=my-release-key.keystore" > local.properties
+          echo "keyStorePassword=${{ secrets.SIGNING_KEY_STORE_PASSWORD }}" >> local.properties
+          echo "keyAlias=${{ secrets.SIGNING_KEY_ALIAS }}" >> local.properties
+          echo "keyAliasPassword=${{ secrets.SIGNING_KEY_PASSWORD }}" >> local.properties
+        shell: bash
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build APKs
+        run: ./gradlew assembleRelease
+
+      - name: Find APK files
+        id: find_apks
+        run: |
+          RELEASE_APK=$(find app/build/outputs/apk/release -name "*.apk" | head -n 1)
+          echo "RELEASE_APK_PATH=${RELEASE_APK}" >> $GITHUB_OUTPUT
+
+      - name: Upload build artifacts to Actions
+        uses: actions/upload-artifact@v7
+        with:
+          name: AppRetention
+          path: |
+            ${{ steps.find_apks.outputs.RELEASE_APK_PATH }}

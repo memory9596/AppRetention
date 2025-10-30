@@ -25,6 +25,8 @@ import static com.hchen.appretention.data.field.SystemField.mPendingCompactionPr
 import static com.hchen.appretention.data.field.SystemField.mState;
 import static com.hchen.appretention.data.field.SystemField.mUseBootCompact;
 import static com.hchen.appretention.data.field.SystemField.mUseCompaction;
+import static com.hchen.appretention.log.AppLogger.logD;
+import static com.hchen.appretention.log.AppLogger.logW;
 import static com.hchen.appretention.data.method.SystemMethod.applyOomAdjLSP;
 import static com.hchen.appretention.data.method.SystemMethod.compactApp;
 import static com.hchen.appretention.data.method.SystemMethod.getBoolean;
@@ -80,8 +82,6 @@ import static com.hchen.hooktool.core.CoreTool.hookAllMethod;
 import static com.hchen.hooktool.core.CoreTool.hookMethod;
 import static com.hchen.hooktool.core.CoreTool.newInstance;
 import static com.hchen.hooktool.core.CoreTool.returnResult;
-import static com.hchen.hooktool.log.XposedLog.logD;
-import static com.hchen.hooktool.log.XposedLog.logW;
 
 import android.os.Handler;
 import android.os.HandlerThread;

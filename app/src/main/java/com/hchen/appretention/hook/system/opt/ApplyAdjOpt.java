@@ -36,6 +36,8 @@ import static com.hchen.appretention.data.path.SystemClass.OomAdjuster;
 import static com.hchen.appretention.data.path.SystemClass.ProcessList;
 import static com.hchen.appretention.data.path.SystemClass.ProcessRecord;
 import static com.hchen.appretention.data.path.SystemClass.TimingsTraceAndSlog;
+import static com.hchen.appretention.log.AppLogger.logD;
+import static com.hchen.appretention.log.AppLogger.logW;
 import static com.hchen.hooktool.core.CoreTool.callMethod;
 import static com.hchen.hooktool.core.CoreTool.callStaticMethod;
 import static com.hchen.hooktool.core.CoreTool.existsConstructor;
@@ -45,8 +47,6 @@ import static com.hchen.hooktool.core.CoreTool.findMethod;
 import static com.hchen.hooktool.core.CoreTool.getField;
 import static com.hchen.hooktool.core.CoreTool.hook;
 import static com.hchen.hooktool.core.CoreTool.hookMethod;
-import static com.hchen.hooktool.log.XposedLog.logD;
-import static com.hchen.hooktool.log.XposedLog.logW;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -60,7 +60,7 @@ import androidx.annotation.NonNull;
 
 import com.hchen.appretention.data.field.SystemField;
 import com.hchen.hooktool.hook.IHook;
-import com.hchen.hooktool.log.XposedLog;
+import com.hchen.appretention.log.AppLogger;
 import com.hchen.hooktool.utils.SystemPropTool;
 
 import java.lang.reflect.Constructor;
@@ -282,7 +282,7 @@ public class ApplyAdjOpt {
                             }
                         }
                     } catch (PackageManager.NameNotFoundException e) {
-                        XposedLog.logE(TAG, e);
+                        AppLogger.logE(TAG, e);
                     }
                 }
             }

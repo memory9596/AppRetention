@@ -16,137 +16,115 @@
 
  * Copyright (C) 2023-2025 HChenX
  */
-package com.hchen.hooktool.log;
+package com.hchen.appretention.log;
 
-import com.hchen.appretention.log.SaveLog;
 import com.hchen.hooktool.HCData;
-import com.hchen.hooktool.HCInit;
-
-import de.robv.android.xposed.XposedBridge;
+import com.hchen.hooktool.log.LogExpand;
+import com.hchen.hooktool.log.XposedLog;
 
 /**
  * LSP 框架日志
  *
  * @author 焕晨HChen
  */
-public class XposedLog {
+public class AppLogger {
     // -------- logE -------------
     public static void logE(String tag, String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log);
+        XposedLog.logE(tag, log);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log);
     }
 
     public static void logE(String tag, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]:\n" + LogExpand.printStackTrace(e));
+        XposedLog.logE(tag, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]:\n" + LogExpand.printStackTrace(e));
     }
 
     public static void logE(String tag, String log, String stackTrace) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log + "\n[Stack Info]: " + stackTrace);
+        XposedLog.logE(tag, log, stackTrace);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log + "\n[Stack Info]: " + stackTrace);
     }
 
     public static void logE(String tag, String log, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
+        XposedLog.logE(tag, log, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
     }
 
     public static void logENoSave(String tag, String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log);
+        XposedLog.logE(tag, log);
     }
 
     public static void logENoSave(String tag, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]:\n" + LogExpand.printStackTrace(e));
+        XposedLog.logE(tag, e);
     }
 
     public static void logENoSave(String tag, String log, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_E) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][E]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
+        XposedLog.logE(tag, log, e);
     }
 
     // ----------- logW --------------
     public static void logW(String tag, String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_W) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]: " + log);
+        XposedLog.logW(tag, log);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]: " + log);
     }
 
     public static void logW(String tag, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_W) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]:\n" + LogExpand.printStackTrace(e));
+        XposedLog.logW(tag, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]:\n" + LogExpand.printStackTrace(e));
     }
 
     public static void logW(String tag, String log, String stackTrace) {
-        if (HCData.getLogLevel() < HCInit.LOG_W) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]: " + log + "\n[Stack Info]: " + stackTrace);
+        XposedLog.logW(tag, log, stackTrace);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]: " + log + "\n[Stack Info]: " + stackTrace);
     }
 
     public static void logW(String tag, String log, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_W) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
+        XposedLog.logW(tag, log, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][W]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
     }
 
     // ----------- logI --------------
     public static void logI(String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_I) return;
-        XposedBridge.log(getXposedTag() + "[I]: " + log);
+        XposedLog.logI(log);
         SaveLog.saveLogContent("Any", getXposedTag() + "[I]: " + log);
     }
 
     public static void logI(String tag, String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_I) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log);
+        XposedLog.logI(tag, log);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log);
     }
 
     public static void logI(String tag, String log, String stackTrace) {
-        if (HCData.getLogLevel() < HCInit.LOG_I) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log + "\n[Stack Info]: " + stackTrace);
+        XposedLog.logI(tag, log, stackTrace);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log + "\n[Stack Info]: " + stackTrace);
     }
 
     public static void logI(String tag, String log, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_I) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
+        XposedLog.logI(tag, log, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
     }
 
     public static void logINoSave(String tag, String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_I) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][I]: " + log);
+        XposedLog.logI(tag, log);
     }
 
     // ------------ logD --------------
     public static void logD(String tag, String log) {
-        if (HCData.getLogLevel() < HCInit.LOG_D) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]: " + log);
+        XposedLog.logD(tag, log);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]: " + log);
     }
 
     public static void logD(String tag, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_D) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]:\n" + LogExpand.printStackTrace(e));
+        XposedLog.logD(tag, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]:\n" + LogExpand.printStackTrace(e));
     }
 
     public static void logD(String tag, String log, String stackTrace) {
-        if (HCData.getLogLevel() < HCInit.LOG_D) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]: " + log + "\n[Stack Info]: " + stackTrace);
+        XposedLog.logD(tag, log, stackTrace);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]: " + log + "\n[Stack Info]: " + stackTrace);
     }
 
     public static void logD(String tag, String log, Throwable e) {
-        if (HCData.getLogLevel() < HCInit.LOG_D) return;
-        XposedBridge.log(getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
+        XposedLog.logD(tag, log, e);
         SaveLog.saveLogContent(tag, getXposedTag() + "[" + HCData.getTargetPackageName() + "][" + tag + "][D]: " + log + "\n[Stack Info]: " + LogExpand.printStackTrace(e));
     }
 
