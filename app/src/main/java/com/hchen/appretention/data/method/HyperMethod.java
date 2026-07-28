@@ -44,6 +44,7 @@ public class HyperMethod {
     public static final String killProcess = "killProcess";
     public static final String killProcessByMinAdj = "killProcessByMinAdj";
     public static final String killAppExceedingHeapThreshold = "killAppExceedingHeapThreshold";
+    public static final String KillProcessForPadSmallWindowMode = "KillProcessForPadSmallWindowMode";
     public static final String checkBackgroundAppException = "checkBackgroundAppException";
     public static final String isNeedCompact = "isNeedCompact";
     public static final String cleanUpMemory = "cleanUpMemory";

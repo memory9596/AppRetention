@@ -37,6 +37,8 @@ import static com.hchen.appretention.data.method.HyperMethod.isMiuiLiteVersion;
 import static com.hchen.appretention.data.method.HyperMethod.killPackage;
 import static com.hchen.appretention.data.method.HyperMethod.killProcess;
 import static com.hchen.appretention.data.method.HyperMethod.killProcessByMinAdj;
+import static com.hchen.appretention.data.method.HyperMethod.KillProcessForPadSmallWindowMode;
+import static com.hchen.appretention.data.method.HyperMethod.checkBackgroundAppException;
 import static com.hchen.appretention.data.method.HyperMethod.nStartPressureMonitor;
 import static com.hchen.appretention.data.method.HyperMethod.onStartJob;
 import static com.hchen.appretention.data.method.HyperMethod.performCompaction;
@@ -241,18 +243,20 @@ public class MiuiV14 extends HCBase {
             .findMethod(cleanUpMemory, List.class, long.class)
             .returnResult(true)
 
-            .findMethod(killPackage, AppStateManager$AppState$RunningProcess, int.class, String.class)
-            .returnResult(0L)
+            // .findMethod(killPackage, IAppState$IRunningProcess, int.class, String.class)
+            // .returnResult(0L)
 
-            .findMethod(killProcess, AppStateManager$AppState$RunningProcess, int.class, String.class)
-            .returnResult(0L)
+            // .findMethod(killProcess, IAppState$IRunningProcess, int.class, String.class)
+            // .returnResult(0L)
 
-            .findMethod(killProcessByMinAdj, int.class, String.class, List.class)
-            .doNothing();
+            .findMethod(KillProcessForPadSmallWindowMode, String.class)
+            .doNothing()
 
-        // Changed: 多余的 Hook。
-        // .method(checkBackgroundAppException, String.class, int.class)
-        // .returnResult(0)
+            // .findMethod(killProcessByMinAdj, int.class, String.class, List.class)
+            // .doNothing()
+
+            .findMethod(checkBackgroundAppException, String.class, int.class)
+            .returnResult(0);
 
         CameraOpt.doHook();
     }

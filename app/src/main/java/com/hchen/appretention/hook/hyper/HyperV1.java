@@ -46,6 +46,8 @@ import static com.hchen.appretention.data.method.HyperMethod.performCompaction;
 import static com.hchen.appretention.data.method.HyperMethod.preloadAppEnqueue;
 import static com.hchen.appretention.data.method.HyperMethod.reclaimBackground;
 import static com.hchen.appretention.data.method.HyperMethod.scanProcessAndCleanUpMemory;
+import static com.hchen.appretention.data.method.HyperMethod.KillProcessForPadSmallWindowMode;
+import static com.hchen.appretention.data.method.HyperMethod.checkBackgroundAppException;
 import static com.hchen.appretention.data.method.HyperMethod.updateScreenState;
 import static com.hchen.appretention.data.path.HyperClass.ActivityTaskManagerService;
 import static com.hchen.appretention.data.path.HyperClass.Build;
@@ -264,18 +266,20 @@ public class HyperV1 extends HCBase {
             .findMethod(scanProcessAndCleanUpMemory, long.class) // Changed: 更好的 Hook 点位。
             .returnResult(true)
 
-            .findMethod(killPackage, IAppState$IRunningProcess, int.class, String.class)
-            .returnResult(0L)
+            // .findMethod(killPackage, IAppState$IRunningProcess, int.class, String.class)
+            // .returnResult(0L)
 
-            .findMethod(killProcess, IAppState$IRunningProcess, int.class, String.class)
-            .returnResult(0L)
+            // .findMethod(killProcess, IAppState$IRunningProcess, int.class, String.class)
+            // .returnResult(0L)
 
-            .findMethod(killProcessByMinAdj, int.class, String.class, List.class)
-            .doNothing();
+            .findMethod(KillProcessForPadSmallWindowMode, String.class)
+            .doNothing()
 
-        // Changed: 多余的 Hook。
-        // .findMethod(checkBackgroundAppException, String.class, int.class)
-        // .returnResult(0)
+            // .findMethod(killProcessByMinAdj, int.class, String.class, List.class)
+            // .doNothing()
+
+            .findMethod(checkBackgroundAppException, String.class, int.class)
+            .returnResult(0);
 
         // .findMethod(isNeedCompact, IAppState$IRunningProcess)
         // .returnResult(false)
