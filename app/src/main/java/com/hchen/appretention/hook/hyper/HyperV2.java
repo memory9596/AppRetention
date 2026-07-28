@@ -96,14 +96,14 @@ public class HyperV2 extends HCBase {
         /*
          * 关闭预加载
          */
-        SystemPropTool.setProp("persist.sys.prestart.proc", FALSE);
+        // SystemPropTool.setProp("persist.sys.prestart.proc", FALSE);
 
         /*
          * 关闭 spc。
          * */
-        SystemPropTool.setProp("persist.sys.spc.enabled", FALSE);
-        SystemPropTool.setProp("persist.sys.spc.cpuexception.enable", FALSE);
-        SystemPropTool.setProp("persist.sys.spc.process.tracker.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.enabled", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.cpuexception.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.process.tracker.enable", FALSE);
         setStaticField(PressureStateSettings, PROCESS_CLEANER_ENABLED, false);
         setStaticField(PressureStateSettings, PROC_CPU_EXCEPTION_ENABLE, false);
         setStaticField(PressureStateSettings, PROCESS_TRACKER_ENABLE, false);
@@ -149,8 +149,8 @@ public class HyperV2 extends HCBase {
          * 由于 PeriodicCleanerService 继承 SystemService 并由如下方法启动；
          * 所以使此方法失效即可彻底禁用 PeriodicCleanerService。
          * */
-        SystemPropTool.setProp("persist.sys.periodic.u.enable", FALSE);
-        SystemPropTool.setProp("persist.sys.periodic.u.startprocess.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.periodic.u.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.periodic.u.startprocess.enable", FALSE);
         // Changed: HyperV2 始终存在此方法。
         hookMethod(SystemServerImpl,
             addMiuiPeriodicCleanerService,
@@ -162,8 +162,8 @@ public class HyperV2 extends HCBase {
          * 启用小米增强回写。
          * */
         if (existsMethod(ExtendMImpl, SetdmoptEnable)) {
-            SystemPropTool.setProp("persist.miui.extm.enable", ONE);
-            SystemPropTool.setProp("persist.miui.extm.dm_opt.enable", TRUE);
+            // SystemPropTool.setProp("persist.miui.extm.enable", ONE);
+            // SystemPropTool.setProp("persist.miui.extm.dm_opt.enable", TRUE);
 
             hookMethod(ExtendMImpl,
                 SetdmoptEnable,
@@ -174,7 +174,7 @@ public class HyperV2 extends HCBase {
         /*
          * 禁用 MemoryFreezeStubImpl。
          * */
-        SystemPropTool.setProp("persist.sys.mfz.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mfz.enable", FALSE);
         hookMethod(MemoryFreezeStubImpl,
             isEnable,
             returnResult(false)
@@ -183,8 +183,8 @@ public class HyperV2 extends HCBase {
         /*
          * 禁用 MemoryStandardProcessControl。
          *  */
-        SystemPropTool.setProp("persist.sys.memory_standard.enable", FALSE);
-        SystemPropTool.setProp("persist.sys.memory_standard.appheap.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.memory_standard.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.memory_standard.appheap.enable", FALSE);
         buildChain(MemoryStandardProcessControl)
             .findMethod(isEnable)
             .returnResult(false);
@@ -251,8 +251,8 @@ public class HyperV2 extends HCBase {
         /*
          * 禁止压缩进程。
          * */
-        SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
-        SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
         setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);
         setStaticField(MiuiMemoryService, sCompactionEnable, false);
         setStaticField(MiuiMemoryService, sCompactSingleProcEnable, false);
@@ -309,14 +309,14 @@ public class HyperV2 extends HCBase {
         /*
          * 禁用 SSModel。
          * */
-        SystemPropTool.setProp("persist.sys.ssmc.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.ssmc.enable", FALSE);
         hookMethodIfExists(SlowStartupSceneMemClean, isSSModelEnable, returnResult(false));
 
         /*
          * 似乎是 Miui 的回收机制。
          * */
-        SystemPropTool.setProp("persist.sys.miui.damon.enable", FALSE);
-        SystemPropTool.setProp("persist.sys.miui.damon.reclaim.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.miui.damon.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.miui.damon.reclaim.enable", FALSE);
 
         /*
          * 禁止系统压力控制器清理内存。

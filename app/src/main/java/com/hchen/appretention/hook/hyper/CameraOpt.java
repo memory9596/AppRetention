@@ -65,13 +65,13 @@ import java.lang.reflect.Method;
 public class CameraOpt {
 
     public static void doHook() {
-        SystemPropTool.setProp("persist.sys.lmkd.extend_reclaim.enable", ZERO);
-        SystemPropTool.setProp("persist.sys.lmkd.double_watermark.enable", ZERO);
-        SystemPropTool.setProp("persist.sys.lmkd.camera_adaptive_lmk.enable", ZERO);
-        SystemPropTool.setProp("persist.sys.lmk.camera.mem_reclaim", ZERO);
-        SystemPropTool.setProp("persist.sys.miui.camera.boost.enable", ZERO);
-        SystemPropTool.setProp("persist.sys.miui.camera.boost.opt", ZERO);
-        SystemPropTool.setProp("persist.sys.miui.camera.boost.killAdj_threshold", "1001");
+        // SystemPropTool.setProp("persist.sys.lmkd.extend_reclaim.enable", ZERO);
+        // SystemPropTool.setProp("persist.sys.lmkd.double_watermark.enable", ZERO);
+        // SystemPropTool.setProp("persist.sys.lmkd.camera_adaptive_lmk.enable", ZERO);
+        // SystemPropTool.setProp("persist.sys.lmk.camera.mem_reclaim", ZERO);
+        // SystemPropTool.setProp("persist.sys.miui.camera.boost.enable", ZERO);
+        // SystemPropTool.setProp("persist.sys.miui.camera.boost.opt", ZERO);
+        // SystemPropTool.setProp("persist.sys.miui.camera.boost.killAdj_threshold", "1001");
 
         if (existsClass(CameraOpt)) {
             Class<?> mCameraOpt = findClass(CameraOpt);

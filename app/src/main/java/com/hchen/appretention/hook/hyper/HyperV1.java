@@ -106,14 +106,14 @@ public class HyperV1 extends HCBase {
         /*
          * 关闭预加载
          */
-        SystemPropTool.setProp("persist.sys.prestart.proc", FALSE);
+        // SystemPropTool.setProp("persist.sys.prestart.proc", FALSE);
 
         /*
          * 关闭 spc。
          * */
-        SystemPropTool.setProp("persist.sys.spc.enabled", FALSE);
-        SystemPropTool.setProp("persist.sys.spc.cpuexception.enable", FALSE);
-        SystemPropTool.setProp("persist.sys.spc.process.tracker.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.enabled", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.cpuexception.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.process.tracker.enable", FALSE);
         setStaticField(PressureStateSettings, PROCESS_CLEANER_ENABLED, false);
         setStaticField(PressureStateSettings, PROC_CPU_EXCEPTION_ENABLE, false);
         setStaticField(PressureStateSettings, PROCESS_TRACKER_ENABLE, false);
@@ -162,8 +162,8 @@ public class HyperV1 extends HCBase {
          *
          * 部分新机型 HyperOSV1 删除了 PeriodicCleanerService。
          * */
-        SystemPropTool.setProp("persist.sys.periodic.u.enable", FALSE);
-        SystemPropTool.setProp("persist.sys.periodic.u.startprocess.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.periodic.u.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.periodic.u.startprocess.enable", FALSE);
         if (existsMethod(SystemServerImpl, addMiuiPeriodicCleanerService, ActivityTaskManagerService)) {
             hookMethod(SystemServerImpl,
                 addMiuiPeriodicCleanerService,
@@ -176,8 +176,8 @@ public class HyperV1 extends HCBase {
          * 启用小米增强回写。
          * */
         if (existsMethod(ExtendMImpl, SetdmoptEnable)) {
-            SystemPropTool.setProp("persist.miui.extm.enable", ONE);
-            SystemPropTool.setProp("persist.miui.extm.dm_opt.enable", TRUE);
+            // SystemPropTool.setProp("persist.miui.extm.enable", ONE);
+            // SystemPropTool.setProp("persist.miui.extm.dm_opt.enable", TRUE);
 
             hookMethod(ExtendMImpl,
                 SetdmoptEnable,
@@ -188,7 +188,7 @@ public class HyperV1 extends HCBase {
         /*
          * 禁用 MemoryFreezeStubImpl。
          * */
-        SystemPropTool.setProp("persist.sys.mfz.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mfz.enable", FALSE);
         hookMethod(MemoryFreezeStubImpl,
             isEnable,
             returnResult(false)
@@ -197,7 +197,7 @@ public class HyperV1 extends HCBase {
         /*
          * 禁用 MemoryStandardProcessControl。
          *  */
-        SystemPropTool.setProp("persist.sys.memory_standard.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.memory_standard.enable", FALSE);
         buildChain(MemoryStandardProcessControl)
             .findMethod(isEnable)
             .returnResult(false);
@@ -338,8 +338,8 @@ public class HyperV1 extends HCBase {
         /*
          * 禁止压缩进程。
          * */
-        SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
-        SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
         setStaticField(MiuiMemoryService, sCompactionEnable, false);
         setStaticField(MiuiMemoryService, sCompactSingleProcEnable, false);
         setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);

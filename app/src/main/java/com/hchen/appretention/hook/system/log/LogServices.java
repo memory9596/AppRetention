@@ -74,7 +74,7 @@ public class LogServices extends HCBase {
             logW(TAG, "Your Device Not Support LogServices!!");
             return;
         }
-        SystemPropTool.setProp(SaveLog.USER_UNLOCKED_COMPLETED_PROP, FALSE);
+        // SystemPropTool.setProp(SaveLog.USER_UNLOCKED_COMPLETED_PROP, FALSE);
 
         hook(systemReadyMethod,
             new IHook() {
@@ -108,7 +108,7 @@ public class LogServices extends HCBase {
             if (action != null) {
                 switch (action) {
                     case Intent.ACTION_BOOT_COMPLETED -> {
-                        SystemPropTool.setProp(SaveLog.USER_UNLOCKED_COMPLETED_PROP, TRUE);
+                        // SystemPropTool.setProp(SaveLog.USER_UNLOCKED_COMPLETED_PROP, TRUE);
                         KillEventLogRecord.init(context);
                         RecordSystemProp.startRecord();
                         context.getContentResolver().registerContentObserver(Settings.System.getUriFor(SETTINGS_KILL_EVENT_LOG_RECORD_ENABLE),

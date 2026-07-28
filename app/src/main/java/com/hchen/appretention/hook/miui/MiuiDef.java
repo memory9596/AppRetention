@@ -83,8 +83,8 @@ public class MiuiDef extends HCBase {
         /*
          * 关闭 spc。
          * */
-        SystemPropTool.setProp("persist.sys.spc.enabled", FALSE);
-        SystemPropTool.setProp("persist.sys.spc.cpuexception.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.enabled", FALSE);
+        // SystemPropTool.setProp("persist.sys.spc.cpuexception.enable", FALSE);
         setStaticField(PressureStateSettings, PROCESS_CLEANER_ENABLED, false);
         setStaticField(PressureStateSettings, PROC_CPU_EXCEPTION_ENABLE, false);
         // setStaticField(PressureStateSettings, PROCESS_TRACKER_ENABLE, false); // Miui14 不包含
@@ -121,7 +121,7 @@ public class MiuiDef extends HCBase {
         /*
          * 禁用 PeriodicCleanerService, Only Miui.
          * */
-        SystemPropTool.setProp("persist.sys.periodic.enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.periodic.enable", FALSE);
         hookMethod(PeriodicCleanerService,
             handleScreenOff,
             doNothing()
@@ -189,8 +189,8 @@ public class MiuiDef extends HCBase {
         /*
          * 禁止压缩进程。
          * */
-        SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
-        SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
+        // SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
 
         setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);
         setStaticField(MiuiMemoryService, sCompactionEnable, false);
