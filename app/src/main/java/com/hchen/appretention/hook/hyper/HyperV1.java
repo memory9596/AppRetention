@@ -166,13 +166,13 @@ public class HyperV1 extends HCBase {
          * */
         // SystemPropTool.setProp("persist.sys.periodic.u.enable", FALSE);
         // SystemPropTool.setProp("persist.sys.periodic.u.startprocess.enable", FALSE);
-        if (existsMethod(SystemServerImpl, addMiuiPeriodicCleanerService, ActivityTaskManagerService)) {
-            hookMethod(SystemServerImpl,
-                addMiuiPeriodicCleanerService,
-                ActivityTaskManagerService,
-                doNothing()
-            );
-        }
+        // if (existsMethod(SystemServerImpl, addMiuiPeriodicCleanerService, ActivityTaskManagerService)) {
+        //     hookMethod(SystemServerImpl,
+        //         addMiuiPeriodicCleanerService,
+        //         ActivityTaskManagerService,
+        //         doNothing()
+        //     );
+        // }
 
         /*
          * 启用小米增强回写。

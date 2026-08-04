@@ -122,15 +122,15 @@ public class MiuiV14 extends HCBase {
          * 禁用 PeriodicCleanerService, Only Miui.
          * */
         // SystemPropTool.setProp("persist.sys.periodic.enable", FALSE);
-        hookMethod(PeriodicCleanerService,
-            handleScreenOff,
-            doNothing()
-        );
-        hookMethod(PeriodicCleanerService,
-            doClean,
-            int.class, int.class, int.class, String.class,
-            doNothing()
-        );
+        // hookMethod(PeriodicCleanerService,
+        //     handleScreenOff,
+        //     doNothing()
+        // );
+        // hookMethod(PeriodicCleanerService,
+        //     doClean,
+        //     int.class, int.class, int.class, String.class,
+        //     doNothing()
+        // );
 
         /*
          * 禁止系统压力控制器清理内存。

@@ -154,11 +154,11 @@ public class HyperV2 extends HCBase {
         // SystemPropTool.setProp("persist.sys.periodic.u.enable", FALSE);
         // SystemPropTool.setProp("persist.sys.periodic.u.startprocess.enable", FALSE);
         // Changed: HyperV2 始终存在此方法。
-        hookMethod(SystemServerImpl,
-            addMiuiPeriodicCleanerService,
-            ActivityTaskManagerService,
-            doNothing()
-        );
+        // hookMethod(SystemServerImpl,
+        //     addMiuiPeriodicCleanerService,
+        //     ActivityTaskManagerService,
+        //     doNothing()
+        // );
 
         /*
          * 启用小米增强回写。
