@@ -326,16 +326,16 @@ public class HyperV2 extends HCBase {
          * 禁止系统压力控制器清理内存。
          * */
         // Changed: Support HyperV2
-        setStaticField(SystemPressureController, IS_ENABLE_RECLAIM, false);
-        buildChain(SystemPressureController)
+        // setStaticField(SystemPressureController, IS_ENABLE_RECLAIM, false);
+        // buildChain(SystemPressureController)
             /*
              * 禁止随屏幕状态启动压力监测器。
              * */
-            .findMethod(updateScreenState, boolean.class)
-            .doNothing()
+            // .findMethod(updateScreenState, boolean.class)
+            // .doNothing()
 
-            .findMethodIfExist(nStartPressureMonitor)
-            .hook(doNothing());
+            // .findMethodIfExist(nStartPressureMonitor)
+            // .hook(doNoth ing());
         /*
          * 无奖竞猜。
          *

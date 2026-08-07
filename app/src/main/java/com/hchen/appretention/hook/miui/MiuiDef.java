@@ -137,19 +137,19 @@ public class MiuiDef extends HCBase {
         /*
          * 禁止系统压力控制器清理内存。
          * */
-        setStaticField(SystemPressureController, IS_ENABLE_RECLAIM, false);
-        buildChain(SystemPressureController)
+        // setStaticField(SystemPressureController, IS_ENABLE_RECLAIM, false);
+        // buildChain(SystemPressureController)
             /*
              * 禁止随屏幕状态启动压力监测器。
              * */
-            .findMethod(updateScreenState, boolean.class)
-            .doNothing()
+            // .findMethod(updateScreenState, boolean.class)
+            // .doNothing()
 
             /*
              * 禁止启动内存压力监测器。
              * */
-            .findMethod(nStartPressureMonitor)
-            .doNothing();
+            // .findMethod(nStartPressureMonitor)
+            // .doNothing();
 
         /*
          * 无奖竞猜。
