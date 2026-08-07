@@ -348,12 +348,12 @@ public class HyperV2 extends HCBase {
          * 禁止启动内存压力监测器。
          * */
         // Changed: Support HyperV2
-        if (existsClass(SystemPressureControllerNative)) {
-            hookMethodIfExists(SystemPressureControllerNative,
-                nStartPressureMonitor,
-                doNothing()
-            );
-        }
+        // if (existsClass(SystemPressureControllerNative)) {
+        //     hookMethodIfExists(SystemPressureControllerNative,
+        //         nStartPressureMonitor,
+        //         doNothing()
+        //     );
+        // }
 
         CameraOpt.doHook();
     }
