@@ -206,11 +206,11 @@ public class MiuiDef extends HCBase {
         /*
          * 禁止 kill 长时间占 cpu 的应用。
          * */
-        hookMethod(SmartCpuPolicyManager,
-            handleLimitCpuException,
-            int.class,
-            doNothing()
-        );
+        // hookMethod(SmartCpuPolicyManager,
+        //     handleLimitCpuException,
+        //     int.class,
+        //     doNothing()
+        // );
 
         /*
          * 禁止空闲 kill。
