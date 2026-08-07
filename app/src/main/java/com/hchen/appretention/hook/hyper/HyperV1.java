@@ -177,15 +177,15 @@ public class HyperV1 extends HCBase {
         /*
          * 启用小米增强回写。
          * */
-        if (existsMethod(ExtendMImpl, SetdmoptEnable)) {
+        // if (existsMethod(ExtendMImpl, SetdmoptEnable)) {
             // SystemPropTool.setProp("persist.miui.extm.enable", ONE);
             // SystemPropTool.setProp("persist.miui.extm.dm_opt.enable", TRUE);
 
-            hookMethod(ExtendMImpl,
-                SetdmoptEnable,
-                doNothing()
-            );
-        }
+        //     hookMethod(ExtendMImpl,
+        //         SetdmoptEnable,
+        //         doNothing()
+        //     );
+        // }
 
         /*
          * 禁用 MemoryFreezeStubImpl。
