@@ -45,6 +45,7 @@ import static com.hchen.appretention.data.method.HyperMethod.onStartJob;
 import static com.hchen.appretention.data.method.HyperMethod.performCompaction;
 import static com.hchen.appretention.data.method.HyperMethod.preloadAppEnqueue;
 import static com.hchen.appretention.data.method.HyperMethod.reclaimBackground;
+import static com.hchen.appretention.data.method.HyperMethod.doAction;
 import static com.hchen.appretention.data.method.HyperMethod.scanProcessAndCleanUpMemory;
 import static com.hchen.appretention.data.method.HyperMethod.KillProcessForPadSmallWindowMode;
 import static com.hchen.appretention.data.method.HyperMethod.checkBackgroundAppException;
@@ -54,6 +55,7 @@ import static com.hchen.appretention.data.path.HyperClass.Build;
 import static com.hchen.appretention.data.path.HyperClass.ExtendMImpl;
 import static com.hchen.appretention.data.path.HyperClass.GameMemoryCleanerDeprecated;
 import static com.hchen.appretention.data.path.HyperClass.GameMemoryReclaimer;
+import static com.hchen.appretention.data.path.HyperClass.GameProcessKiller;
 import static com.hchen.appretention.data.path.HyperClass.IAppState$IRunningProcess;
 import static com.hchen.appretention.data.path.HyperClass.LifecycleConfig;
 import static com.hchen.appretention.data.path.HyperClass.MemoryFreezeStubImpl;
@@ -118,7 +120,7 @@ public class HyperV1 extends HCBase {
         // SystemPropTool.setProp("persist.sys.spc.process.tracker.enable", FALSE);
         setStaticField(PressureStateSettings, PROCESS_CLEANER_ENABLED, false);
         setStaticField(PressureStateSettings, PROC_CPU_EXCEPTION_ENABLE, false);
-        setStaticField(PressureStateSettings, PROCESS_TRACKER_ENABLE, false);
+        // setStaticField(PressureStateSettings, PROCESS_TRACKER_ENABLE, false);
 
         /*
          * 禁止为了游戏回收内存。
@@ -126,10 +128,16 @@ public class HyperV1 extends HCBase {
          * 调用了 GameProcessCompactor, GameProcessKiller 方法 doAction
          * 被调用 GameMemoryCleaner, MiGardService 方法 reclaimMemoryForGameIfNeed
          * */
-        hookMethod(GameMemoryReclaimer,
-            reclaimBackground,
+        // hookMethod(GameMemoryReclaimer,
+        //     reclaimBackground,
+        //     long.class,
+        //     doNothing()
+        // );
+        hookMethod(
+            GameProcessKiller,
+            doAction,
             long.class,
-            doNothing()
+            returnResult(0L)
         );
 
         /*
@@ -234,8 +242,8 @@ public class HyperV1 extends HCBase {
              * 禁止因温度 kill。
              * REASON_AUTO_THERMAL_KILL_ALL_LEVEL_1
              * */
-            .findMethod(handleThermalKillProc, ProcessConfig)
-            .doNothing()
+            // .findMethod(handleThermalKillProc, ProcessConfig)
+            // .doNothing()
 
             /*
              * REASON_AUTO_SLEEP_CLEAN
@@ -344,16 +352,16 @@ public class HyperV1 extends HCBase {
          * */
         // SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
         // SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
-        setStaticField(MiuiMemoryService, sCompactionEnable, false);
-        setStaticField(MiuiMemoryService, sCompactSingleProcEnable, false);
-        setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);
+        // setStaticField(MiuiMemoryService, sCompactionEnable, false);
+        // setStaticField(MiuiMemoryService, sCompactSingleProcEnable, false);
+        // setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);
         // Changed: 多余的 Hook。
         // hookMethod(OomAdjusterImpl, compactBackgroundProcess, ProcessRecord, doNothing());
-        hookMethod(MiuiMemReclaimer,
-            performCompaction,
-            String.class, int.class,
-            doNothing()
-        );
+        // hookMethod(MiuiMemReclaimer,
+        //     performCompaction,
+        //     String.class, int.class,
+        //     doNothing()
+        // );
 
         /*
          * 禁止 kill 长时间占 cpu 的应用。

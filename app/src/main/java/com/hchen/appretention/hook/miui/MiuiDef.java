@@ -44,10 +44,12 @@ import static com.hchen.appretention.data.method.HyperMethod.onStartJob;
 import static com.hchen.appretention.data.method.HyperMethod.performCompaction;
 import static com.hchen.appretention.data.method.HyperMethod.preloadAppEnqueue;
 import static com.hchen.appretention.data.method.HyperMethod.reclaimBackground;
+import static com.hchen.appretention.data.method.HyperMethod.doAction;
 import static com.hchen.appretention.data.method.HyperMethod.updateScreenState;
 import static com.hchen.appretention.data.path.HyperClass.AppStateManager$AppState$RunningProcess;
 import static com.hchen.appretention.data.path.HyperClass.Build;
 import static com.hchen.appretention.data.path.HyperClass.GameMemoryReclaimer;
+import static com.hchen.appretention.data.path.HyperClass.GameProcessKiller;
 import static com.hchen.appretention.data.path.HyperClass.LifecycleConfig;
 import static com.hchen.appretention.data.path.HyperClass.MiuiMemReclaimer;
 import static com.hchen.appretention.data.path.HyperClass.MiuiMemoryService;
@@ -97,10 +99,16 @@ public class MiuiDef extends HCBase {
          * 调用了 GameProcessCompactor, GameProcessKiller 方法 doAction
          * 被调用 GameMemoryCleaner, MiGardService 方法 reclaimMemoryForGameIfNeed
          * */
-        hookMethod(GameMemoryReclaimer,
-            reclaimBackground,
+        // hookMethod(GameMemoryReclaimer,
+        //     reclaimBackground,
+        //     long.class,
+        //     doNothing()
+        // );
+        hookMethod(
+            GameProcessKiller,
+            doAction,
             long.class,
-            doNothing()
+            returnResult(0L)
         );
 
         /*
@@ -163,8 +171,8 @@ public class MiuiDef extends HCBase {
              * 禁止因温度 kill。
              * REASON_AUTO_THERMAL_KILL_ALL_LEVEL_1
              * */
-            .findMethod(handleThermalKillProc, ProcessConfig)
-            .doNothing()
+            // .findMethod(handleThermalKillProc, ProcessConfig)
+            // .doNothing()
 
             /*
              * REASON_AUTO_SLEEP_CLEAN
@@ -194,14 +202,14 @@ public class MiuiDef extends HCBase {
         // SystemPropTool.setProp("persist.sys.mms.compact_enable", FALSE);
         // SystemPropTool.setProp("persist.sys.mms.single_compact_enable", FALSE);
 
-        setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);
-        setStaticField(MiuiMemoryService, sCompactionEnable, false);
-        setStaticField(MiuiMemoryService, sCompactSingleProcEnable, false);
-        hookMethod(MiuiMemReclaimer,
-            performCompaction,
-            String.class, int.class,
-            doNothing()
-        );
+        // setStaticField(MiuiMemReclaimer, RECLAIM_IF_NEEDED, false);
+        // setStaticField(MiuiMemoryService, sCompactionEnable, false);
+        // setStaticField(MiuiMemoryService, sCompactSingleProcEnable, false);
+        // hookMethod(MiuiMemReclaimer,
+        //     performCompaction,
+        //     String.class, int.class,
+        //     doNothing()
+        // );
 
         /*
          * 禁止 kill 长时间占 cpu 的应用。

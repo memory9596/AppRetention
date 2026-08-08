@@ -30,6 +30,7 @@ public class HyperClass {
     public static final String ScoutDisplayMemoryManager$DiaplayMemoryErrorInfo = "com.miui.server.stability.ScoutDisplayMemoryManager$DiaplayMemoryErrorInfo";
     public static final String GameMemoryCleaner = "com.miui.server.migard.memory.GameMemoryCleaner";
     public static final String GameMemoryReclaimer = "com.android.server.am.GameMemoryReclaimer";
+    public static final String GameProcessKiller = "com.android.server.am.GameProcessKiller";
     public static final String Build = "miui.os.Build";
     public static final String OomAdjusterImpl = "com.android.server.am.OomAdjusterImpl";
     public static final String PeriodicCleanerService = "com.android.server.am.PeriodicCleanerService";

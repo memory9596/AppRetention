@@ -27,6 +27,7 @@ public class HyperMethod {
     public static final String resumeMemLeak = "resumeMemLeak";
     public static final String reclaimMemoryForGameIfNeed = "reclaimMemoryForGameIfNeed";
     public static final String reclaimBackground = "reclaimBackground";
+    public static final String doAction = "doAction";
     public static final String isMiuiLiteVersion = "isMiuiLiteVersion";
     public static final String getDeviceLevelForRAM = "getDeviceLevelForRAM";
     public static final String getBackgroundAppCount = "getBackgroundAppCount";
