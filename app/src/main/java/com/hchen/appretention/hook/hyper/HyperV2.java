@@ -223,8 +223,8 @@ public class HyperV2 extends HCBase {
              * ProcessPolicy.REASON_AUTO_THERMAL_KILL
              * ProcessPolicy.REASON_AUTO_IDLE_KILL
              */
-            .findMethod(handleKillApp, ProcessConfig)
-            .returnResult(true)
+            // .findMethod(handleKillApp, ProcessConfig)
+            // .returnResult(true)
 
             /*
              * 禁止锁屏 kill。
