@@ -127,21 +127,21 @@ public class AndroidV extends HCBase {
          * 调用了 ActivityManagerService 方法
          * updateAppProcessCpuTimeLPr、updatePhantomProcessCpuTimeLPr
          * */
-        hookMethod(ActivityManagerService,
-            checkExcessivePowerUsageLPr,
-            long.class, boolean.class, long.class,
-            String.class, String.class, int.class,
-            ProcessRecord,
-            returnResult(false)
-        );
+        // hookMethod(ActivityManagerService,
+        //     checkExcessivePowerUsageLPr,
+        //     long.class, boolean.class, long.class,
+        //     String.class, String.class, int.class,
+        //     ProcessRecord,
+        //     returnResult(false)
+        // );
 
         /*
          * 禁止空闲清理。
          * */
-        hookMethod(ActivityManagerService,
-            performIdleMaintenance,
-            doNothing()
-        );
+        // hookMethod(ActivityManagerService,
+        //     performIdleMaintenance,
+        //     doNothing()
+        // );
 
         // ------------ AppProfiler ------------
 
@@ -150,15 +150,15 @@ public class AndroidV extends HCBase {
          *
          * 虽然 setMemFactorOverrideLocked 可能会改变其参数值，但几乎不会被触发。
          * */
-        hookConstructor(AppProfiler,
-            ActivityManagerService, Looper.class, LowMemDetector,
-            new IHook() {
-                @Override
-                public void after() {
-                    setThisField(mMemFactorOverride, 0);
-                }
-            }
-        );
+        // hookConstructor(AppProfiler,
+        //     ActivityManagerService, Looper.class, LowMemDetector,
+        //     new IHook() {
+        //         @Override
+        //         public void after() {
+        //             setThisField(mMemFactorOverride, 0);
+        //         }
+        //     }
+        // );
 
         // ------------- OomAdjuster -------------
         /*
@@ -166,11 +166,11 @@ public class AndroidV extends HCBase {
          *
          * 被调用 OomAdjuster 方法 updateAndTrimProcessLSP
          * */
-        hookMethod(OomAdjuster,
-            shouldKillExcessiveProcesses,
-            long.class,
-            returnResult(false)
-        );
+        // hookMethod(OomAdjuster,
+        //     shouldKillExcessiveProcesses,
+        //     long.class,
+        //     returnResult(false)
+        // );
 
         // ------------ RecentTasks ---------------
         /*
@@ -206,43 +206,43 @@ public class AndroidV extends HCBase {
         /*
          * 各种基本常量设置。
          * */
-        buildChain(ActivityManagerConstants)
-            .findConstructor(
-                Context.class, ActivityManagerService, Handler.class)
-            .hook(new IHook() {
-                @Override
-                public void after() {
-                    setThisField(CUR_MAX_CACHED_PROCESSES, 6144); // 最大缓存进程数
-                    // setThisField(CUR_MAX_EMPTY_PROCESSES, (6144 / 6)); // 最大空进程数。Changed: 不要更改空进程限制
-                    // setThisField(CUR_TRIM_CACHED_PROCESSES, -1); // 修剪缓存进程数 (别问为啥是 -1。Changed: 不需要修改
-                    // setThisField(CUR_TRIM_EMPTY_PROCESSES, Integer.MAX_VALUE); // 修剪空进程数 (别问为啥是又是 max 了。Changed: 不要更改空进程限制
-                    // setThisField(MAX_CACHED_PROCESSES, Integer.MAX_VALUE); // 最大缓存进程数量。Changed: 没用的修改
-                    setThisField(MAX_PHANTOM_PROCESSES, Integer.MAX_VALUE); // 最大虚幻进程数量
-                    setThisField(mKillBgRestrictedAndCachedIdle, false); // 禁止 kill 后台受限和缓存空闲的应用
+        // buildChain(ActivityManagerConstants)
+        //     .findConstructor(
+        //         Context.class, ActivityManagerService, Handler.class)
+        //     .hook(new IHook() {
+        //         @Override
+        //         public void after() {
+        //             setThisField(CUR_MAX_CACHED_PROCESSES, 6144); // 最大缓存进程数
+        //             // setThisField(CUR_MAX_EMPTY_PROCESSES, (6144 / 6)); // 最大空进程数。Changed: 不要更改空进程限制
+        //             // setThisField(CUR_TRIM_CACHED_PROCESSES, -1); // 修剪缓存进程数 (别问为啥是 -1。Changed: 不需要修改
+        //             // setThisField(CUR_TRIM_EMPTY_PROCESSES, Integer.MAX_VALUE); // 修剪空进程数 (别问为啥是又是 max 了。Changed: 不要更改空进程限制
+        //             // setThisField(MAX_CACHED_PROCESSES, Integer.MAX_VALUE); // 最大缓存进程数量。Changed: 没用的修改
+        //             setThisField(MAX_PHANTOM_PROCESSES, Integer.MAX_VALUE); // 最大虚幻进程数量
+        //             setThisField(mKillBgRestrictedAndCachedIdle, false); // 禁止 kill 后台受限和缓存空闲的应用
 
-                    if (existsField(getMember().getDeclaringClass(), USE_MODERN_TRIM))
-                        setThisField(USE_MODERN_TRIM, true); // 使用现代 trim。Note: AndroidV 删除
-                }
-            })
+        //             if (existsField(getMember().getDeclaringClass(), USE_MODERN_TRIM))
+        //                 setThisField(USE_MODERN_TRIM, true); // 使用现代 trim。Note: AndroidV 删除
+        //         }
+        //     })
 
-            /* 一般情况不会被主动调用，仅保险使用 */
-            .findMethod(updateKillBgRestrictedCachedIdle)
-            .doNothing()
+        //     /* 一般情况不会被主动调用，仅保险使用 */
+        //     .findMethod(updateKillBgRestrictedCachedIdle)
+        //     .doNothing()
 
-            .findMethodIfExist(updateUseModernTrim) // Note: AndroidV 删除
-            .doNothing()
+        //     .findMethodIfExist(updateUseModernTrim) // Note: AndroidV 删除
+        //     .doNothing()
 
-            .findMethod(updateProactiveKillsEnabled)
-            .doNothing()
+        //     .findMethod(updateProactiveKillsEnabled)
+        //     .doNothing()
 
-            .findMethod(updateMaxCachedProcesses)
-            .doNothing()
+        //     .findMethod(updateMaxCachedProcesses)
+        //     .doNothing()
 
-            .findMethod(updateMaxPhantomProcesses)
-            .doNothing()
+        //     .findMethod(updateMaxPhantomProcesses)
+        //     .doNothing()
 
-            .findMethodIfExist(updatePerfConfigConstants) // 高通的东西
-            .doNothing();
+        //     .findMethodIfExist(updatePerfConfigConstants) // 高通的东西
+        //     .doNothing();
 
         /*
          * 禁止主动杀戮。
@@ -255,17 +255,17 @@ public class AndroidV extends HCBase {
          * 设置此方法第三个参数为 0L，是为了使以下代码返回假：
          * app.getLastActivityTime() < oldTime
          * */
-        hookMethod(OomAdjuster,
-            updateAndTrimProcessLSP,
-            long.class, long.class, long.class,
-            ActiveUids, int.class, boolean.class /* AndroidV 新增 */,
-            new IHook() {
-                @Override
-                public void before() {
-                    setThisField(mNextNoKillDebugMessageTime, Long.MAX_VALUE); // 处理频繁的日志
-                    // setArgs(2, 0L); // Changed: 不要保护空进程
-                }
-            }
-        );
+        // hookMethod(OomAdjuster,
+        //     updateAndTrimProcessLSP,
+        //     long.class, long.class, long.class,
+        //     ActiveUids, int.class, boolean.class /* AndroidV 新增 */,
+        //     new IHook() {
+        //         @Override
+        //         public void before() {
+        //             setThisField(mNextNoKillDebugMessageTime, Long.MAX_VALUE); // 处理频繁的日志
+        //             // setArgs(2, 0L); // Changed: 不要保护空进程
+        //         }
+        //     }
+        // );
     }
 }
