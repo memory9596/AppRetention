@@ -177,8 +177,8 @@ public class MiuiV14 extends HCBase {
              * REASON_AUTO_SYSTEM_ABNORMAL_CLEAN
              * REASON_AUTO_THERMAL_KILL_ALL_LEVEL_2
              * */
-            .findMethod(handleKillAll, ProcessConfig, boolean.class)
-            .doNothing()
+            // .findMethod(handleKillAll, ProcessConfig, boolean.class)
+            // .doNothing()
 
             /*
              * ProcessPolicy.REASON_AUTO_POWER_KILL
