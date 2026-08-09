@@ -103,10 +103,10 @@ public class AndroidDef extends HCBase {
          * 修剪影子进程的方法。
          * hook updateProcessCpuStatesLocked 后，此方法基本失效，做保险使用。
          * */
-        hookMethod(PhantomProcessList,
-            trimPhantomProcessesIfNecessary,
-            doNothing()
-        );
+        // hookMethod(PhantomProcessList,
+        //     trimPhantomProcessesIfNecessary,
+        //     doNothing()
+        // );
 
         // ----------- ActivityManagerService ------------
         /*
