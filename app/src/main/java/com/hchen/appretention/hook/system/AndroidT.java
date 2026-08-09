@@ -73,9 +73,9 @@ import com.hchen.hooktool.hook.IHook;
 public class AndroidT extends HCBase {
     @Override
     public void init() {
-        OomLevelsOpt.init();
-        CacheCompaction.init();
-        ApplyAdjOpt.init();
+        // OomLevelsOpt.init();
+        // CacheCompaction.init();
+        // ApplyAdjOpt.init();
 
         // ----------- ProcessList ----------------------
         /*

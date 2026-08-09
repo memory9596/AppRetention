@@ -65,7 +65,7 @@ public class AndroidDef extends HCBase {
     @Override
     protected void init() {
         // UpdateOomLevels.init(); // 未做专门适配
-        CacheCompaction.enableCompaction();
+        // CacheCompaction.enableCompaction();
 
         // ----------- ProcessList ----------------------
         /*

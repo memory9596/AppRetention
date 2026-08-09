@@ -76,9 +76,9 @@ public class AndroidU extends HCBase {
 
     @Override
     public void init() {
-        OomLevelsOpt.init();
-        CacheCompaction.init();
-        ApplyAdjOpt.init();
+        // OomLevelsOpt.init();
+        // CacheCompaction.init();
+        // ApplyAdjOpt.init();
 
         // ----------- ProcessList ----------------------
         /*
