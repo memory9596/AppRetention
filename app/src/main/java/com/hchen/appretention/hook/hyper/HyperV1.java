@@ -237,7 +237,7 @@ public class HyperV1 extends HCBase {
         // .findMethod(foregroundActivityChangedLocked, ControllerActivityInfo)
         // .doNothing()
 
-        buildChain(ProcessPowerCleaner)
+        // buildChain(ProcessPowerCleaner)
             /*
              * 禁止因温度 kill。
              * REASON_AUTO_THERMAL_KILL_ALL_LEVEL_1
@@ -264,8 +264,8 @@ public class HyperV1 extends HCBase {
             /*
              * 禁止锁屏 kill。
              * */
-            .findMethod(handleAutoLockOff)
-            .doNothing();
+            // .findMethod(handleAutoLockOff)
+            // .doNothing();
 
         /*
          * 是 MiuiMemoryService 几个核心方法。

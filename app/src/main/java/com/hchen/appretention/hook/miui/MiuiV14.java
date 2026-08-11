@@ -164,7 +164,7 @@ public class MiuiV14 extends HCBase {
         // .findMethod(foregroundActivityChangedLocked, ControllerActivityInfo)
         // .doNothing()
 
-        buildChain(ProcessPowerCleaner)
+        // buildChain(ProcessPowerCleaner)
             /*
              * 禁止因温度 kill。
              * REASON_AUTO_THERMAL_KILL_ALL_LEVEL_1
@@ -191,8 +191,8 @@ public class MiuiV14 extends HCBase {
             /*
              * 禁止锁屏 kill。
              * */
-            .findMethod(handleAutoLockOff)
-            .doNothing();
+            // .findMethod(handleAutoLockOff)
+            // .doNothing();
 
         /*
          * 禁止压缩进程。

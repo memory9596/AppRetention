@@ -202,7 +202,7 @@ public class HyperV2 extends HCBase {
         // .findMethod(init, Context.class, ActivityManagerService)
         // .returnResult(false) // Changed: 多余的 Hook
 
-        buildChain(ProcessPowerCleaner)
+        // buildChain(ProcessPowerCleaner)
             /*
              * 禁止因温度 kill。
              * REASON_AUTO_THERMAL_KILL_ALL_LEVEL_1
@@ -229,7 +229,7 @@ public class HyperV2 extends HCBase {
             /*
              * 禁止锁屏 kill。
              * */
-            .findMethod(handleAutoLockOff).doNothing();
+            // .findMethod(handleAutoLockOff).doNothing();
 
         /*
          * 是 MiuiMemoryService 几个核心方法。
