@@ -363,6 +363,6 @@ public class HyperV2 extends HCBase {
         //     );
         // }
 
-        CameraOpt.doHook();
+        // CameraOpt.doHook();
     }
 }

@@ -266,6 +266,6 @@ public class MiuiV14 extends HCBase {
             .findMethod(checkBackgroundAppException, String.class, int.class)
             .returnResult(0);
 
-        CameraOpt.doHook();
+        // CameraOpt.doHook();
     }
 }
