@@ -208,9 +208,9 @@ public class HyperV1 extends HCBase {
          * 禁用 MemoryStandardProcessControl。
          *  */
         // SystemPropTool.setProp("persist.sys.memory_standard.enable", FALSE);
-        buildChain(MemoryStandardProcessControl)
-            .findMethod(isEnable)
-            .returnResult(false);
+        // buildChain(MemoryStandardProcessControl)
+        //     .findMethod(isEnable)
+        //     .returnResult(false);
         // .findMethod(init, Context.class, ActivityManagerService)
         // .returnResult(false) // Changed: 多余的 Hook
 

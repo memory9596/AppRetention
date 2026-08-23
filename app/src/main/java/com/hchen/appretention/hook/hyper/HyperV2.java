@@ -195,9 +195,9 @@ public class HyperV2 extends HCBase {
          *  */
         // SystemPropTool.setProp("persist.sys.memory_standard.enable", FALSE);
         // SystemPropTool.setProp("persist.sys.memory_standard.appheap.enable", FALSE);
-        buildChain(MemoryStandardProcessControl)
-            .findMethod(isEnable)
-            .returnResult(false);
+        // buildChain(MemoryStandardProcessControl)
+        //     .findMethod(isEnable)
+        //     .returnResult(false);
 
         // .findMethod(init, Context.class, ActivityManagerService)
         // .returnResult(false) // Changed: 多余的 Hook
